@@ -123,7 +123,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
           <div className="sidebar__header">
             <Link href="/for-you" className="sidebar__logo" onClick={closeMobileSidebar}>
               <AiOutlineBook></AiOutlineBook>
-              <span className="sidebar__logo-text">Timsand</span>
+              <span className="sidebar__logo-text">Summarist</span>
             </Link>
           </div>
 
