@@ -4,7 +4,7 @@ import { AuthError } from '@supabase/supabase-js'
 // Guest login credentials (hardcoded as per requirements)
 const GUEST_CREDENTIALS = {
   email: 'guest@gmail.com',
-  password: 'guest2025'
+  password: 'guest123'
 }
 
 export const signInWithPassword = async (email: string, password: string) => {
@@ -12,7 +12,12 @@ export const signInWithPassword = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    })
+    });
+
+    
+    if (error) {
+      throw error;
+    }
     
     return { data, error }
   } catch (error) {

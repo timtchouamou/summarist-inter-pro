@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { signInWithPassword, signInAsGuest } from '../../lib/supabaseAuth'
@@ -17,6 +17,31 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [guestLoading, setGuestLoading] = useState(false)
   const [error, setError] = useState('')
+
+
+   // 👇 Automatically login when the component mounts
+  useEffect(() => {
+    const autoLogin = async () => {
+      const testEmail = 'guest@gmail.com'   // ⬅️ your test account email
+      const testPassword = 'guest123'     // ⬅️ your test account password
+
+      setLoading(true)
+      const { error } = await signInWithPassword(testEmail, testPassword)
+      setLoading(false)
+
+      if (error) {
+        console.error('Auto login failed:', error)
+        setError('Automatic login failed. Please try manually.')
+        return
+      }
+
+      closeModal()
+      router.push('/for-you')
+    }
+
+    autoLogin()
+  }, [closeModal, router])
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
